@@ -1,0 +1,29 @@
+{% extends "sihapp/base.html" %}
+{% block bodyblock %}
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <h1 class="font-weight-bold">Login</h1>
+                <form class="form-group" method="post" action="{% url 'login' %}">{% csrf_token %}
+                    <label for="uname">Username</label>
+                    <input type="text" class="form-control" id="uname" name="uname" placeholder="Username">
+                    <label for="pwd">Password</label>
+                    <input type="password" class="form-control" id="pwd" name="pwd" placeholder="Password">
+                    <br>
+                    <input type="submit" class="btn btn-primary btn-block" value="Login">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock bodyblock %}
+{% block scriptblock %}
+    <style>
+    .col-4{
+        border: 1px solid black;
+    }
+    input{
+        border-bottom: 5px;
+        border-top: 5px;
+    }
+    </style>
+{% endblock scriptblock %}

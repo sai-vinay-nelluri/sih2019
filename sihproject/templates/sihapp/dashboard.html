@@ -1,0 +1,249 @@
+{% extends "sihapp/base.html" %}
+{% block bodyblock %}
+    <div class="container bg-light">
+        <div class="row">
+            <h1 class="font-weight-bold text-uppercase mx-auto">OVERALL ANALYTICS OF PROMOTIONAL ACTIVITIES</h1>
+        </div>
+        <div class="row">
+            <canvas id="myChart"></canvas>
+        </div>
+        <br>
+        <hr>
+        <div class="row justify-content-center">
+            <h1 class="font-weight-bold">Individual analytics of each vehicle type</h1>
+        </div>
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#scooters1">Scooters</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#motorcycles1">Motor cycles</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#mopeds1">Mopeds</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#threewheelers1">Three wheelers</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="container tab-pane active justify-content-center" id="scooters1">
+                <h1 class="font-weight-bold">Scooters</h1>
+                <canvas id="scooters"></canvas>
+                <h1 class="font-weight-bold">SALE DETAILS</h1>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Customer name</th>
+                            <th>Mobile number</th>
+                            <th>Vehicle color</th>
+                            <th>Known mode</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for vehicle in scooters %}
+                        <tr>
+                            <td>{{ vehicle.name }}</td>
+                            <td>{{ vehicle.mobile_number }}</td>
+                            <td>{{ vehicle.vehicle_color }}</td>
+                            <td>{{ vehicle.mode_known }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="container tab-pane fade justify-content-center" id="motorcycles1">
+                <h1>Motor cycles</h1>
+                <canvas id="motorcycles"></canvas>
+                <h1 class="font-weight-bold">SALE DETAILS</h1>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Customer name</th>
+                            <th>Mobile number</th>
+                            <th>Vehicle color</th>
+                            <th>Known mode</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for vehicle in motorcycles %}
+                        <tr>
+                            <td>{{ vehicle.name }}</td>
+                            <td>{{ vehicle.mobile_number }}</td>
+                            <td>{{ vehicle.vehicle_color }}</td>
+                            <td>{{ vehicle.mode_known }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="container tab-pane fade justify-content-center" id="mopeds1">
+                <h1>Mopeds</h1>
+                <canvas id="mopeds"></canvas>
+                <h1 class="font-weight-bold">SALE DETAILS</h1>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Customer name</th>
+                            <th>Mobile number</th>
+                            <th>Vehicle color</th>
+                            <th>Known mode</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for vehicle in mopeds %}
+                        <tr>
+                            <td>{{ vehicle.name }}</td>
+                            <td>{{ vehicle.mobile_number }}</td>
+                            <td>{{ vehicle.vehicle_color }}</td>
+                            <td>{{ vehicle.mode_known }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="container tab-pane fade justify-content-center" id="threewheelers1">
+                <h1>Three wheelers</h1>
+                <canvas id="threewheelers"></canvas>
+                <h1 class="font-weight-bold">SALE DETAILS</h1>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Customer name</th>
+                            <th>Mobile number</th>
+                            <th>Vehicle color</th>
+                            <th>Known mode</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for vehicle in three_wheelers %}
+                        <tr>
+                            <td>{{ vehicle.name }}</td>
+                            <td>{{ vehicle.mobile_number }}</td>
+                            <td>{{ vehicle.vehicle_color }}</td>
+                            <td>{{ vehicle.mode_known }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+    </div>
+{% endblock bodyblock %}
+{% block scriptblock %}
+<script>
+$(document).ready(function () {
+    Chart.defaults.global.animation.duration = 4000;
+    function renderChart(id, data, labels) {
+        let ctx = $('#' + id);
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'GRP of advertising mode',
+                    data: data,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: false
+                        }
+                    }]
+                }
+            }
+        });
+    }
+    let url='/ajax/grp/all';
+    let data={};
+    let method="GET";
+    $.ajax({
+        url:url,
+        data:data,
+        method:method,
+        success:function (recievedData) {
+            renderChart("myChart", recievedData.data, recievedData.labels);
+        },
+        error:function (error) {
+            console.log(error)
+        }
+    });
+    $.ajax({
+        url:'/ajax/grp/scooters',
+        data:{},
+        method:'GET',
+        success:function (recievedData) {
+            renderChart("scooters", recievedData.data, recievedData.labels);
+        },
+        error:function (error) {
+            console.log(error)
+        }
+    });
+    $.ajax({
+        url:'/ajax/grp/motorcycles',
+        data:{},
+        method:'GET',
+        success:function (recievedData) {
+            renderChart("motorcycles", recievedData.data, recievedData.labels);
+        },
+        error:function (error) {
+            console.log(error)
+        }
+    });
+    $.ajax({
+        url:'/ajax/grp/moped',
+        data:{},
+        method:'GET',
+        success:function (recievedData) {
+            renderChart("mopeds", recievedData.data, recievedData.labels);
+        },
+        error:function (error) {
+            console.log(error)
+        }
+    });
+    $.ajax({
+        url:'/ajax/grp/three_wheelers',
+        data:{},
+        method:'GET',
+        success:function (recievedData) {
+            renderChart("threewheelers", recievedData.data, recievedData.labels);
+        },
+        error:function (error) {
+            console.log(error)
+        }
+    });
+});
+</script>
+    <style>
+        canvas{
+            border: 1px solid black;
+            margin-bottom: 20px;
+        }
+    table{
+        border: 2px solid black;
+    }
+    thead{
+        border: 2px double black;
+    }
+    </style>
+{% endblock scriptblock %}
